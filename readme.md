@@ -10,7 +10,9 @@
 
 - python -m venv venv
 
-# Step 2: pip install -r requirements.txt
+# Step 2: Install the requirements
+
+-pip install -r requirements.txt
 
 # Step 3: Run the parser code
 
