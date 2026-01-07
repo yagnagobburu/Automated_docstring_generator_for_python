@@ -1,10 +1,10 @@
 
-- How it works:
-# This file app.py works with streamlit as the UI. 
-# It makes use of the parse.py file to analyze and identify the classes and functions in the python source file.
+# How it works:
+- This file app.py works with streamlit as the UI. 
+- It makes use of the parse.py file to analyze and identify the classes and functions in the python source file.
 
 
-- How to run:
+# How to run:
 
 # Step 1: Create a virtual environment 
 
