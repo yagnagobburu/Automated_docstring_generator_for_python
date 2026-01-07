@@ -12,7 +12,7 @@
 
 # Step 2: Install the requirements
 
--pip install -r requirements.txt
+- pip install -r requirements.txt
 
 # Step 3: Run the parser code
 
