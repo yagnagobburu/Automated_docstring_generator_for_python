@@ -1,6 +1,6 @@
 # app.py
 import streamlit as st
-from parser import analyze_code, generate_baseline_docstring, generate_cover_report
+from parser import analyze_code, generate_baseline_docstring, generate_cover_report, validate_with_pydocstyle 
 
 st.set_page_config(page_title="Automated Docstring Generator", layout="wide")
 
@@ -84,3 +84,22 @@ if uploaded_file:
             st.write(report["functions_without_docstrings"])
         else:
             st.write("None")
+            
+    st.divider()      
+            
+    st.subheader("🧪 PEP-257 Docstring Validation (pydocstyle)")
+
+    validation = validate_with_pydocstyle(uploaded_file.name)
+
+    st.metric("Total Violations", validation["total_issues"])
+    st.metric("Validation Status", "✅ PASS" if validation["is_valid"] else "❌ FAIL")
+
+    if validation["issues"]:
+        st.markdown("### ❌ Violations")
+        for issue in validation["issues"]:
+            st.write(
+                f"**{issue['code']}** | {issue['object']} | "
+                f"Line {issue['line']} – {issue['message']}"
+            )
+    else:
+        st.success("No PEP-257 violations found 🎉")

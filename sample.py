@@ -1,6 +1,6 @@
 class MathOps:
     def add(self, a, b):
-        """this function adds two integers and return an interger."""
+        """This function adds two integers and return an interger."""
         result = a + b
         return result
 

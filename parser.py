@@ -1,6 +1,7 @@
-
+#parser.py
 import ast
 from typing import Dict
+import pydocstyle
 
 class CodeAnalyzer(ast.NodeVisitor):
     def __init__(self):
@@ -56,8 +57,8 @@ def generate_baseline_docstring(item: Dict, is_class: bool = False) -> str:
     # ---------- Title ----------
     if is_class:
         title = f"Class: {item['name']}"
-    elif item.get("parent_class"):
-        title = f"Method: {item['parent_class']}.{item['name']}"
+    # elif item.get("parent_class"):
+    #     title = f"Method: {item['parent_class']}.{item['name']}"
     else:
         title = f"Function: {item['name']}"
 
@@ -151,3 +152,28 @@ def generate_cover_report(analysis: Dict) -> Dict:
             report["functions_without_docstrings"].append(fn["name"])
 
     return report
+
+def validate_with_pydocstyle(file_path: str) -> Dict:
+    """
+    Validate docstrings using pydocstyle (PEP-257).
+    """
+    results = {
+        "is_valid": True,
+        "total_issues": 0,
+        "issues": []
+    }
+
+    errors = pydocstyle.check([file_path])
+
+    for error in errors:
+        results["issues"].append({
+            "code": error.code,
+            "message": error.message,
+            "line": error.line,
+            "object": error.definition
+        })
+
+    results["total_issues"] = len(results["issues"])
+    results["is_valid"] = results["total_issues"] == 0
+
+    return results
