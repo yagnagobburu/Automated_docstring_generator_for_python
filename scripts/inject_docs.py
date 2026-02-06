@@ -8,10 +8,10 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT_DIR)
 
 from injector.docstring_injector import DocstringInjector
-IN_PRE_COMMIT = os.environ.get("PRE_COMMIT") == "1"
-if IN_PRE_COMMIT:
-    print(f"Missing docstrings detected in {os.path}")
-    sys.exit(0)
+# IN_PRE_COMMIT = os.environ.get("PRE_COMMIT") == "1"
+# if IN_PRE_COMMIT:
+#     print(f"Missing docstrings detected in {os.path}")
+#     sys.exit(0)
 
 with open("pyproject.toml", "rb") as f:
     config = tomllib.load(f)
