@@ -1,0 +1,7 @@
+[tool.docstring_tool]
+styles = ["google", "numpy", "rest"]
+default_style = "google"
+min_coverage = 80
+
+[tool.pydocstyle]
+convention = "google"
