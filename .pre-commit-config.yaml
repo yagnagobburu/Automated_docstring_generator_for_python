@@ -1,0 +1,46 @@
+repos:
+  # ── Standard hooks ────────────────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: debug-statements
+
+  # ── Ruff linter + formatter ───────────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # ── docgen: coverage gate ─────────────────────────────────────────────────
+  - repo: local
+    hooks:
+      - id: docgen-coverage
+        name: "docgen — Docstring Coverage Check"
+        language: system
+        entry: docgen coverage src/ --fail-under 80
+        pass_filenames: false
+        always_run: false
+        types: [python]
+
+      - id: docgen-validate
+        name: "docgen — PEP 257 Validation"
+        language: system
+        entry: docgen validate src/ --ignore D100,D104
+        pass_filenames: false
+        always_run: false
+        types: [python]
+
+      - id: pytest-fast
+        name: "pytest — Fast test suite"
+        language: system
+        entry: python -m pytest tests/ -x -q --no-header
+        pass_filenames: false
+        always_run: false
+        types: [python]
